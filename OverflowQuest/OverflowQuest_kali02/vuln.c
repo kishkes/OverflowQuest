@@ -25,8 +25,9 @@ int main(int argc, char const* argv[])
         exit(EXIT_FAILURE);
     }
 
+
     //Set the socket to accept on port 8080
-    int opt = 1;
+    int opt = 8080;
     if ( setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) != 0){
         perror("socket to 8080 failed");
         exit(EXIT_FAILURE);
@@ -50,12 +51,11 @@ int main(int argc, char const* argv[])
         exit(EXIT_FAILURE);
     }
 
-    valread = read(new_socket, buffer,
-                   1024 - 1); // subtract 1 for the null
+    valread = read(new_socket, buffer, 1024 - 1); // subtract 1 for the null
                               // terminator at the end
-                              
+
     printf("%s\n", buffer);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
+    //send(new_socket, hello, strlen(hello), 0);
+    //printf("Hello message sent\n");
 
 }
