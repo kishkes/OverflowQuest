@@ -19,8 +19,6 @@ int main(int argc, char const* argv[])
         return -1;
     }
 
-    puts("heey");
-
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
@@ -37,7 +35,7 @@ int main(int argc, char const* argv[])
 
 
     send(client_fd, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
+    printf("kali01: Hello message sent\n");
     valread = read(client_fd, buffer, 1024 - 1); 
                                 // subtract 1 for the null
                               // terminator at the end
