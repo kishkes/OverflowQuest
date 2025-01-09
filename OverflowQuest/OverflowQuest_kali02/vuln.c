@@ -6,7 +6,29 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <asm-generic/socket.h>
 #define PORT 8080
+
+
+void response(int client_socket, char *message){
+
+  char response[40];
+
+  // Build response
+  sprintf(response, "You sent:\"%s\"\n", message); //overflow (you sent adds chars)
+  // Send response to the client
+  printf(response);
+}
+
+void handle_client(int client_socket) {
+    char buffer[40];
+    printf("Write your message\n");
+    recv(client_socket, buffer, 40, 0); 
+    response(client_socket, buffer);
+    close(client_socket);
+}
+
+
 
 int main(int argc, char const* argv[])
 {
@@ -15,8 +37,6 @@ int main(int argc, char const* argv[])
     struct sockaddr_in address;
     int opt = 1;
     socklen_t addrlen = sizeof(address);
-    char buffer[1024] = { 0 };
-    char* hello = "Hello from kali_02";
 
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -44,18 +64,10 @@ int main(int argc, char const* argv[])
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    if ((new_socket = accept(server_fd, (struct sockaddr*)&address, &addrlen)) < 0) {
-        perror("accept");
-        exit(EXIT_FAILURE);
-    }
 
-    while(valread == 0){
-        valread = read(new_socket, buffer, 1024 - 1); // subtract 1 for the null // terminator at the end
+    while ((new_socket = accept(server_fd, (struct sockaddr*)&address, &addrlen)) >= 0) {
+                handle_client(new_socket);
     }
-
-    printf("%s\n", buffer);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("kali02: Hello message sent\n");
 
     // closing the connected socket
     close(new_socket);
