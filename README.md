@@ -10,5 +10,6 @@ Goal:
 - Document
 - Create a NOP Slide to excecute Shell code to run the calculator.
 
-For next time: 
-- Try to create the NOP slide to run the calculator.
+For the future: 
+- Play around with shell code to run the calculator app
+- Create the NOP sled to run the above shell code on the vulnerable machine
