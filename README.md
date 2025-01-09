@@ -1,4 +1,4 @@
-Updated 1/9/2025
+Updated 1/9/2025. See the update file from today for more indepth description of the project status
 
 Current project status:
 - The vuln program on kali01 is vulnerable to buffer overflow due to incorrect array sizing failing at sprintf in the response function.
