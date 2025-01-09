@@ -33,13 +33,15 @@ int main(int argc, char const* argv[])
         return -1;
     }
 
+    char overflow[612*8] = "";
+    for (int i = 0; i < 612; i++){
+        strcat(overflow, " kishke");
+    }
 
-    send(client_fd, hello, strlen(hello), 0);
+
+    send(client_fd, overflow, strlen(overflow), 0);
     printf("kali01: Hello message sent\n");
-    valread = read(client_fd, buffer, 1024 - 1); 
-                                // subtract 1 for the null
-                              // terminator at the end
-    printf("%s\n", buffer);
+
 
     // closing the connected socket
     close(client_fd);
